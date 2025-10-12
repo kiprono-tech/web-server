@@ -5,6 +5,7 @@ const geocode = require('./utils/geocode');
 const forecast = require('./utils/forecast');
 
 const app = express();
+const port = process.env.PORT || 3000
 
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, '../public');
@@ -57,7 +58,7 @@ app.get('/weather', (req, res) => {
                 return res.send({ error });
             }
             res.send({
-                forecast: `${forecastData.weather_descriptions[0]}. It is currently ${forecastData.temperature} degrees out. It feels like ${forecastData.feelslike} degrees.`,
+                forecast: `${forecastData.weather_descriptions[0]}. It is currently ${forecastData.temperature} degrees out. It feels like ${forecastData.feelslike}°C.`,
                 location,
                 address: req.query.address
             });
@@ -103,6 +104,6 @@ app.get('*', (req, res) => {
 //     res.status(404).send('My 404 page');
 // });
 
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+app.listen(port, () => {
+    console.log('Server is running on port ' + port);
 });
